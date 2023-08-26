@@ -253,3 +253,4 @@ config.yaml
 
 # Keep
 !**/.gitkeep
+!.idea/icon.svg
