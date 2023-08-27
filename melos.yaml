@@ -1,0 +1,8 @@
+name: foxcord_backend
+
+packages:
+  - packages/*
+
+ide:
+  intellij:
+    moduleNamePrefix: ""

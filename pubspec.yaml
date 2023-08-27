@@ -1,0 +1,20 @@
+name: foxcord_backend_workspace
+version: 1.0.0
+description: Workspace for FoxCord backend services.
+repository: https://git.kasefuchs.su/foxcordchat/backend
+issue_tracker: https://git.kasefuchs.su/foxcordchat/backend/issues
+
+dev_dependencies:
+  melos: ^3.1.1
+
+environment:
+  sdk: ">=3.1.0 <4.0.0"
+
+publish_to: none
+
+funding:
+  - https://boosty.to/kasefuchs
+
+topics:
+  - foxcord
+  - foxcordchat
