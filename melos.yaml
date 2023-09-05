@@ -3,6 +3,43 @@ name: foxcord_backend
 packages:
   - packages/*
 
+scripts:
+  build_runner:build:
+    run: |
+      melos exec -- \
+        "dart run build_runner build --delete-conflicting-outputs"
+    description: Run a build_runner build.
+    packageFilters:
+      scope:
+        - foxcord_common
+
+  build_runner:watch:
+    run: |
+      melos exec -- \
+        "dart run build_runner watch --delete-conflicting-outputs"
+    description: Run a build_runner watch.
+    packageFilters:
+      scope:
+        - foxcord_common
+
+  prisma:generate:
+    run: |
+      melos exec -- \
+        "yarn prisma:generate"
+    description: Generate Prisma Client.
+    packageFilters:
+      dirExists:
+        - prisma
+
+  prisma:push:
+    run: |
+      melos exec -- \
+        "yarn prisma:push"
+    description: Push Prisma schema to database.
+    packageFilters:
+      dirExists:
+        - prisma
+
 ide:
   intellij:
     moduleNamePrefix: ""
