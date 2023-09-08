@@ -3,6 +3,11 @@ name: foxcord_backend
 packages:
   - packages/*
 
+command:
+  bootstrap:
+    hooks:
+      post: melos run prisma:generate && melos run build_runner:build
+
 scripts:
   build_runner:build:
     run: |
@@ -10,8 +15,8 @@ scripts:
         "dart run build_runner build --delete-conflicting-outputs"
     description: Run a build_runner build.
     packageFilters:
-      scope:
-        - foxcord_common
+      dependsOn:
+        - build_runner
 
   build_runner:watch:
     run: |
@@ -19,8 +24,8 @@ scripts:
         "dart run build_runner watch --delete-conflicting-outputs"
     description: Run a build_runner watch.
     packageFilters:
-      scope:
-        - foxcord_common
+      dependsOn:
+        - build_runner
 
   prisma:generate:
     run: |
@@ -30,6 +35,8 @@ scripts:
     packageFilters:
       dirExists:
         - prisma
+      dependsOn:
+        - orm
 
   prisma:push:
     run: |
@@ -39,6 +46,8 @@ scripts:
     packageFilters:
       dirExists:
         - prisma
+      dependsOn:
+        - orm
 
   test:
     run: |
@@ -46,8 +55,10 @@ scripts:
         "dart test"
     description: Run Dart tests.
     packageFilters:
-      dirExists: test
-      dependsOn: test
+      dirExists:
+        - test
+      dependsOn:
+        - test
 
 ide:
   intellij:
