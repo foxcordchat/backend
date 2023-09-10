@@ -1,3 +1,4 @@
+import 'package:foxcord_common/generated/structure/prisma/client.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'database.freezed.dart';
@@ -40,6 +41,11 @@ interface class DatabaseConfiguration with _$DatabaseConfiguration {
         port: port,
         path: database,
         queryParameters: options,
+      );
+
+  /// Returns a datasource based on this configuration.
+  Datasources toDatasource() => Datasources(
+        db: toConnectionUri().toString(),
       );
 
   factory DatabaseConfiguration.fromJson(Map<String, dynamic> json) =>
