@@ -1,4 +1,4 @@
-import 'package:foxcord_common/src/model/configuration/database.dart';
+import 'package:foxcord_common/src/configuration/database.dart';
 import 'package:test/test.dart';
 
 Future<void> main() async {
