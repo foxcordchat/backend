@@ -8,6 +8,7 @@ environment:
   sdk: ">=3.1.0 <4.0.0"
 
 dependencies:
+  dart_amqp: ^0.2.5
   freezed_annotation: ^2.4.1
   json_annotation: ^4.8.1
   orm: ^3.4.4
