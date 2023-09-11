@@ -35,13 +35,15 @@ interface class DatabaseConfiguration with _$DatabaseConfiguration {
 
   /// Returns a database connection uri based on this configuration.
   Uri toConnectionUri() => Uri(
-        scheme: type,
-        userInfo: password != null ? "$username:$password" : username,
-        host: host,
-        port: port,
-        path: database,
-        queryParameters: options,
-      );
+      scheme: type,
+      userInfo: userInfo,
+      host: host,
+      port: port,
+      path: database,
+      queryParameters: options);
+
+  /// Returns a authentication user info based on this configuration.
+  String? get userInfo => password != null ? "$username:$password" : username;
 
   /// Returns a datasource based on this configuration.
   Datasources toDatasource() => Datasources(
