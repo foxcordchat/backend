@@ -6,23 +6,23 @@ enum Bits { first, second, third }
 Future<void> main() async {
   group(BitField<Bits>, () {
     test('should add bit', () {
-      final BitField<Bits> bitField = BitField<Bits>();
+      final BitField<Bits> bitField = BitField<Bits>.empty();
 
       bitField.add(Bits.first);
 
-      expect(bitField.value, 1);
+      expect(bitField.value, BigInt.one);
     });
 
     test('should remove bit', () {
-      final BitField<Bits> bitField = BitField<Bits>(3);
+      final BitField<Bits> bitField = BitField<Bits>.fromInt(3);
 
       bitField.remove(Bits.first);
 
-      expect(bitField.value, 2);
+      expect(bitField.value, BigInt.two);
     });
 
     test('should detect if bit exists', () {
-      final BitField<Bits> bitField = BitField<Bits>(3);
+      final BitField<Bits> bitField = BitField<Bits>.fromInt(3);
 
       final bool bitExists = bitField.has(Bits.first);
 
@@ -30,7 +30,7 @@ Future<void> main() async {
     });
 
     test('should detect if bit missing', () {
-      final BitField<Bits> bitField = BitField<Bits>(5);
+      final BitField<Bits> bitField = BitField<Bits>.fromInt(5);
 
       final bool bitMissing = bitField.missing(Bits.second);
 
