@@ -5,8 +5,9 @@ part 'amqp.freezed.dart';
 
 part 'amqp.g.dart';
 
+/// AMQP connection options.
 @freezed
-class AMQPConfiguration with _$AMQPConfiguration {
+interface class AMQPConfiguration with _$AMQPConfiguration {
   /// Default virtual host.
   static const String defaultVirtualHost = "/";
 
