@@ -1,7 +1,4 @@
-/// Extension for creating bit flags from enum options.
-extension _BitFlagEnum on Enum {
-  BigInt get flag => BigInt.one << index;
-}
+import 'package:foxcord_common/src/extension/dart/core/enum/bitflag.dart';
 
 /// Class for managing bit fields represented as integers.
 base class BitField<BitType extends Enum> {
