@@ -1,5 +1,3 @@
-import 'package:dart_amqp/dart_amqp.dart';
-import 'package:foxcord_common/src/configuration/amqp.dart';
 import 'package:foxcord_common/src/configuration/database.dart';
 import 'package:test/test.dart';
 
