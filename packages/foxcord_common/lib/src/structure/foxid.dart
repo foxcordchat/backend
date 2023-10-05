@@ -71,7 +71,7 @@ class FOxID {
     ..datacenter = datacenter ?? Platform.localHostname.hashCode
     ..worker = worker ?? pid
     ..counter = counter ?? _increment++
-    ..random = _random.nextInt(FOxIDFieldOptions.random.maxValue);
+    ..random = random ?? _random.nextInt(FOxIDFieldOptions.random.maxValue);
 
   /// Reader/Writer of internal FOxID byte-buffer.
   ByteData get _view => ByteData.view(payload.buffer);
