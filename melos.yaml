@@ -27,28 +27,6 @@ scripts:
       dependsOn:
         - build_runner
 
-  prisma:generate:
-    run: |
-      melos exec -- \
-        "yarn prisma:generate"
-    description: Generate Prisma Client.
-    packageFilters:
-      dirExists:
-        - prisma
-      dependsOn:
-        - orm
-
-  prisma:push:
-    run: |
-      melos exec -- \
-        "yarn prisma:push"
-    description: Push Prisma schema to database.
-    packageFilters:
-      dirExists:
-        - prisma
-      dependsOn:
-        - orm
-
   test:
     run: |
       melos exec -- \

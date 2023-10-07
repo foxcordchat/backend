@@ -1,5 +1,5 @@
-import 'package:foxcord_common/generated/structure/prisma/client.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:stormberry/stormberry.dart';
 
 part 'database.freezed.dart';
 
@@ -11,11 +11,8 @@ interface class DatabaseConfiguration with _$DatabaseConfiguration {
   const DatabaseConfiguration._();
 
   const factory DatabaseConfiguration({
-    /// RDBMS type.
-    required String type,
-
     /// Database name.
-    required String database,
+    String? database,
 
     /// Database host.
     String? host,
@@ -29,27 +26,19 @@ interface class DatabaseConfiguration with _$DatabaseConfiguration {
     /// Database password.
     String? password,
 
-    /// Advanced database connection uri options.
+    /// Advanced database connection options.
     Map<String, String>? options,
   }) = _DatabaseConfiguration;
 
-  /// Returns a database connection uri based on this configuration.
-  Uri toConnectionUri() => Uri(
-      scheme: type,
-      userInfo: userInfo,
+  /// Returns a datasource based on this configuration.
+  Database construct() => Database(
       host: host,
       port: port,
-      path: database,
-      queryParameters: options);
+      database: database,
+      user: username,
+      password: password,
+      useSSL: options?['sslmode'] == 'enable',
+      debugPrint: options?['debug'] == 'enable');
 
-  /// Returns a authentication user info based on this configuration.
-  String? get userInfo => password != null ? "$username:$password" : username;
-
-  /// Returns a datasource based on this configuration.
-  Datasources toDatasource() => Datasources(
-        db: toConnectionUri().toString(),
-      );
-
-  factory DatabaseConfiguration.fromJson(Map<String, dynamic> json) =>
-      _$DatabaseConfigurationFromJson(json);
+  factory DatabaseConfiguration.fromJson(Map<String, dynamic> json) => _$DatabaseConfigurationFromJson(json);
 }

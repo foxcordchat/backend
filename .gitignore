@@ -247,7 +247,7 @@ fabric.properties
 # Generated
 *.g.dart
 *.freezed.dart
-packages/**/lib/generated/**/*
+*.schema.dart
 
 # Config
 config.yaml
