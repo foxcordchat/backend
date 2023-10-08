@@ -4,6 +4,8 @@ import 'package:dart_amqp/dart_amqp.dart';
 
 part 'amqp.freezed.dart';
 
+part 'amqp.g.dart';
+
 part 'amqp.mapper.dart';
 
 /// AMQP connection options.

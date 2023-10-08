@@ -4,6 +4,8 @@ import 'package:stormberry/stormberry.dart';
 
 part 'database.freezed.dart';
 
+part 'database.g.dart';
+
 part 'database.mapper.dart';
 
 /// Database connection options.
