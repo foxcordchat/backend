@@ -1,12 +1,14 @@
+import 'package:dart_mappable/dart_mappable.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:stormberry/stormberry.dart';
 
 part 'database.freezed.dart';
 
-part 'database.g.dart';
+part 'database.mapper.dart';
 
 /// Database connection options.
 @freezed
+@MappableClass()
 interface class DatabaseConfiguration with _$DatabaseConfiguration {
   const DatabaseConfiguration._();
 

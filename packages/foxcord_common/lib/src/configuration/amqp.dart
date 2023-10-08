@@ -1,12 +1,14 @@
+import 'package:dart_mappable/dart_mappable.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:dart_amqp/dart_amqp.dart';
 
 part 'amqp.freezed.dart';
 
-part 'amqp.g.dart';
+part 'amqp.mapper.dart';
 
 /// AMQP connection options.
 @freezed
+@MappableClass()
 interface class AMQPConfiguration with _$AMQPConfiguration {
   /// Default virtual host.
   static const String defaultVirtualHost = "/";

@@ -248,6 +248,7 @@ fabric.properties
 *.g.dart
 *.freezed.dart
 *.schema.dart
+*.mapper.dart
 
 # Config
 config.yaml
