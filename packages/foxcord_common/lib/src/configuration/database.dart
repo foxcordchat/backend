@@ -11,7 +11,7 @@ part 'database.mapper.dart';
 /// Database connection options.
 @freezed
 @MappableClass()
-interface class DatabaseConfiguration with _$DatabaseConfiguration {
+interface class DatabaseConfiguration with DatabaseConfigurationMappable, _$DatabaseConfiguration {
   const DatabaseConfiguration._();
 
   const factory DatabaseConfiguration({

@@ -11,7 +11,7 @@ part 'amqp.mapper.dart';
 /// AMQP connection options.
 @freezed
 @MappableClass()
-interface class AMQPConfiguration with _$AMQPConfiguration {
+interface class AMQPConfiguration with AMQPConfigurationMappable, _$AMQPConfiguration {
   /// Default virtual host.
   static const String defaultVirtualHost = "/";
 
@@ -45,11 +45,11 @@ interface class AMQPConfiguration with _$AMQPConfiguration {
 
   /// Returns AMQP connection settings based on this configuration.
   ConnectionSettings toConnectionSettings() => ConnectionSettings(
-      host: host,
-      port: port,
-      virtualHost: virtualHost,
-      authProvider: authenticator);
+        host: host,
+        port: port,
+        virtualHost: virtualHost,
+        authProvider: authenticator,
+      );
 
-  factory AMQPConfiguration.fromJson(Map<String, dynamic> json) =>
-      _$AMQPConfigurationFromJson(json);
+  factory AMQPConfiguration.fromJson(Map<String, dynamic> json) => _$AMQPConfigurationFromJson(json);
 }
