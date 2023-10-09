@@ -1,4 +1,4 @@
-import 'package:foxcord_common/src/structure/bitfield.dart';
+import 'package:foxcord_common/src/structure/type/bitfield.dart';
 import 'package:test/test.dart';
 
 enum Bits { first, second, third }

@@ -1,4 +1,4 @@
-import 'package:foxcord_common/src/structure/foxid.dart';
+import 'package:foxcord_common/src/structure/type/foxid.dart';
 import 'package:test/test.dart';
 
 Future<void> main() async {
