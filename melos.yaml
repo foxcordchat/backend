@@ -6,7 +6,7 @@ packages:
 command:
   bootstrap:
     hooks:
-      post: melos run prisma:generate && melos run build_runner:build
+      post: melos run build_runner:build --no-select
 
 scripts:
   build_runner:build:
