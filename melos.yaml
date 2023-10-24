@@ -10,27 +10,21 @@ command:
 
 scripts:
   build_runner:build:
-    run: |
-      melos exec -- \
-        "dart run build_runner build --delete-conflicting-outputs"
+    exec: dart run build_runner build --delete-conflicting-outputs
     description: Run a build_runner build.
     packageFilters:
       dependsOn:
         - build_runner
 
   build_runner:watch:
-    run: |
-      melos exec -- \
-        "dart run build_runner watch --delete-conflicting-outputs"
+    exec: dart run build_runner watch --delete-conflicting-outputs
     description: Run a build_runner watch.
     packageFilters:
       dependsOn:
         - build_runner
 
   test:
-    run: |
-      melos exec -- \
-        "dart test"
+    exec: dart test
     description: Run Dart tests.
     packageFilters:
       dirExists:
