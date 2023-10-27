@@ -23,6 +23,20 @@ scripts:
       dependsOn:
         - build_runner
 
+  minerva:debug:
+    exec: dart run minerva debug
+    description: Run Minerva server with debug services.
+    packageFilters:
+      dependsOn:
+        - minerva
+
+  minerva:run:
+    exec: dart run minerva run
+    description: Run Minerva server.
+    packageFilters:
+      dependsOn:
+        - minerva
+
   test:
     exec: dart test
     description: Run Dart tests.
