@@ -1,0 +1,26 @@
+### Excludes ###
+logs/
+*.log
+
+### Gradle ###
+.gradle
+build/
+out/
+dist/
+!gradle/wrapper/gradle-wrapper.jar
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IDE ###
+.vscode
+.idea
+*.iws
+*.iml
+*.ipr
