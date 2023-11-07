@@ -1,7 +1,7 @@
 buildscript {
     extra.apply {
         set("springBootVersion", "3.1.5")
-        set("kotlinVersion", "1.3.60")
+        set("kotlinVersion", "1.9.20")
     }
 
     repositories {
