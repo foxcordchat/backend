@@ -12,7 +12,8 @@ part 'session.mapper.dart';
 @MappableClass()
 interface class DatabaseSessionConfiguration
     with DatabaseSessionConfigurationMappable, _$DatabaseSessionConfiguration {
-  static const ReplicationMode defaultReplicationMode = ReplicationMode.none;
+  /// Default replication mode.
+  static const ReplicationMode _defaultReplicationMode = ReplicationMode.none;
 
   const DatabaseSessionConfiguration._();
 
@@ -24,7 +25,7 @@ interface class DatabaseSessionConfiguration
     String? timeZone,
 
     /// The replication mode for connecting in streaming replication mode.
-    @Default(DatabaseSessionConfiguration.defaultReplicationMode)
+    @Default(DatabaseSessionConfiguration._defaultReplicationMode)
     ReplicationMode replicationMode,
   }) = _DatabaseSessionConfiguration;
 

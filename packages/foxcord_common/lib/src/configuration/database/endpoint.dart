@@ -13,9 +13,14 @@ interface class DatabaseEndpointConfiguration
     with
         DatabaseEndpointConfigurationMappable,
         _$DatabaseEndpointConfiguration {
-  static const int defaultPort = 5432;
-  static const bool defaultRequireSsl = false;
-  static const bool defaultAllowCleartextPassword = false;
+  /// Default postgres port.
+  static const int _defaultPort = 5432;
+
+  /// Default SSL requirement.
+  static const bool _defaultRequireSsl = false;
+
+  /// Send cleartext password by default.
+  static const bool _defaultAllowCleartextPassword = false;
 
   const DatabaseEndpointConfiguration._();
 
@@ -27,7 +32,7 @@ interface class DatabaseEndpointConfiguration
     required String host,
 
     /// Database port.
-    @Default(DatabaseEndpointConfiguration.defaultPort) int port,
+    @Default(DatabaseEndpointConfiguration._defaultPort) int port,
 
     /// Database username.
     String? username,
@@ -36,10 +41,10 @@ interface class DatabaseEndpointConfiguration
     String? password,
 
     /// Use SSL for database connection.
-    @Default(DatabaseEndpointConfiguration.defaultRequireSsl) bool requireSsl,
+    @Default(DatabaseEndpointConfiguration._defaultRequireSsl) bool requireSsl,
 
     /// Allow the database password to be used in cleartext. NOT SAFE!!!
-    @Default(DatabaseEndpointConfiguration.defaultAllowCleartextPassword)
+    @Default(DatabaseEndpointConfiguration._defaultAllowCleartextPassword)
     bool allowCleartextPassword,
   }) = _DatabaseEndpointConfiguration;
 

@@ -11,16 +11,16 @@ part 'amqp.mapper.dart';
 @MappableClass()
 interface class AMQPConfiguration with AMQPConfigurationMappable, _$AMQPConfiguration {
   /// Default virtual host.
-  static const String defaultVirtualHost = "/";
+  static const String _defaultVirtualHost = "/";
 
   /// Default user name.
-  static const String defaultUsername = "guest";
+  static const String _defaultUsername = "guest";
 
   /// Default password.
-  static const String defaultPassword = "guest";
+  static const String _defaultPassword = "guest";
 
   /// Default port.
-  static const int defaultPort = 5672;
+  static const int _defaultPort = 5672;
 
   const AMQPConfiguration._();
 
@@ -29,16 +29,16 @@ interface class AMQPConfiguration with AMQPConfigurationMappable, _$AMQPConfigur
     required String host,
 
     /// Port to connect on.
-    @Default(AMQPConfiguration.defaultPort) int port,
+    @Default(AMQPConfiguration._defaultPort) int port,
 
     /// Virtual host to access during this connection.
-    @Default(AMQPConfiguration.defaultVirtualHost) String virtualHost,
+    @Default(AMQPConfiguration._defaultVirtualHost) String virtualHost,
 
     /// Username to use when authenticating to the server.
-    @Default(AMQPConfiguration.defaultUsername) String username,
+    @Default(AMQPConfiguration._defaultUsername) String username,
 
     /// Password to use when authenticating to the server.
-    @Default(AMQPConfiguration.defaultPassword) String password,
+    @Default(AMQPConfiguration._defaultPassword) String password,
   }) = _AMQPConfiguration;
 
   /// Returns a authenticator based on this configuration.

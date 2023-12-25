@@ -14,8 +14,11 @@ part 'database.mapper.dart';
 @MappableClass()
 interface class DatabaseConfiguration
     with DatabaseConfigurationMappable, _$DatabaseConfiguration {
-  static const defaultLogStatements = false;
-  static const defaultEnableMigrations = true;
+  /// Log database queries by default.
+  static const _defaultLogStatements = false;
+
+  /// Enable migrations by default.
+  static const _defaultEnableMigrations = true;
 
   const DatabaseConfiguration._();
 
@@ -27,10 +30,10 @@ interface class DatabaseConfiguration
     DatabaseSessionConfiguration? session,
 
     /// Log database queries.
-    @Default(DatabaseConfiguration.defaultLogStatements) bool logStatements,
+    @Default(DatabaseConfiguration._defaultLogStatements) bool logStatements,
 
     /// Enable database migrations.
-    @Default(DatabaseConfiguration.defaultEnableMigrations)
+    @Default(DatabaseConfiguration._defaultEnableMigrations)
     bool enableMigrations,
   }) = _DatabaseConfiguration;
 
