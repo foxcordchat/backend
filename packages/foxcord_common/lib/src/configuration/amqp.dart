@@ -1,11 +1,9 @@
+import 'package:dart_amqp/dart_amqp.dart';
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:dart_amqp/dart_amqp.dart';
 
 part 'amqp.freezed.dart';
-
 part 'amqp.g.dart';
-
 part 'amqp.mapper.dart';
 
 /// AMQP connection options.
@@ -21,6 +19,9 @@ interface class AMQPConfiguration with AMQPConfigurationMappable, _$AMQPConfigur
   /// Default password.
   static const String defaultPassword = "guest";
 
+  /// Default port.
+  static const int defaultPort = 5672;
+
   const AMQPConfiguration._();
 
   const factory AMQPConfiguration({
@@ -28,7 +29,7 @@ interface class AMQPConfiguration with AMQPConfigurationMappable, _$AMQPConfigur
     required String host,
 
     /// Port to connect on.
-    required int port,
+    @Default(AMQPConfiguration.defaultPort) int port,
 
     /// Virtual host to access during this connection.
     @Default(AMQPConfiguration.defaultVirtualHost) String virtualHost,
