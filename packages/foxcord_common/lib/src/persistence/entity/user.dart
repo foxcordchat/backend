@@ -1,9 +1,5 @@
-import 'package:stormberry/stormberry.dart';
+import 'package:drift/drift.dart';
 
-part 'user.schema.dart';
-
-@Model(tableName: 'users')
-abstract class UserEntity {
-  @PrimaryKey()
-  String get id;
+class User extends Table {
+  TextColumn get id => text()();
 }
