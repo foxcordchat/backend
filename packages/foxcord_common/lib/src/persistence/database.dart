@@ -1,6 +1,6 @@
 import 'package:drift/drift.dart';
 
-import 'entity/user.dart';
+import 'tables/user.dart';
 
 part 'database.g.dart';
 
