@@ -1,8 +1,8 @@
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:drift_postgres/drift_postgres.dart';
-import 'package:foxcord_common/src/configuration/database/session.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import 'connection.dart';
 import 'endpoint.dart';
 
 part 'database.freezed.dart';
@@ -26,8 +26,8 @@ interface class DatabaseConfiguration
     /// Database endpoint.
     required DatabaseEndpointConfiguration endpoint,
 
-    /// Database session.
-    DatabaseSessionConfiguration? session,
+    /// Database connection.
+    DatabaseConnectionConfiguration? connection,
 
     /// Log database queries.
     @Default(DatabaseConfiguration._defaultLogStatements) bool logStatements,
@@ -40,7 +40,7 @@ interface class DatabaseConfiguration
   /// Postgres database driver with this configuration.
   PgDatabase toPgDatabase() => PgDatabase(
         endpoint: endpoint.toPgEndpoint(),
-        sessionSettings: session?.toPgSessionSettings(),
+        settings: connection?.toPgConnection(),
         logStatements: logStatements,
         enableMigrations: enableMigrations,
       );
