@@ -1,6 +1,8 @@
 import 'package:drift/drift.dart';
+import 'package:foxid/foxid.dart';
 
-import 'tables/user.dart';
+import 'converter/foxid.dart';
+import 'table/user.dart';
 
 part 'database.g.dart';
 
