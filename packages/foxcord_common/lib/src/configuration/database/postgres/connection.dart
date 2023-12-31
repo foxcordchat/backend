@@ -9,13 +9,13 @@ part 'connection.mapper.dart';
 /// Database connection configuration.
 @freezed
 @MappableClass()
-interface class DatabaseConnectionConfiguration
+interface class PostgresDatabaseConnectionConfiguration
     with
-        DatabaseConnectionConfigurationMappable,
-        _$DatabaseConnectionConfiguration {
-  const DatabaseConnectionConfiguration._();
+        PostgresDatabaseConnectionConfigurationMappable,
+        _$PostgresDatabaseConnectionConfiguration {
+  const PostgresDatabaseConnectionConfiguration._();
 
-  const factory DatabaseConnectionConfiguration({
+  const factory PostgresDatabaseConnectionConfiguration({
     /// Application name of this connection.
     String? applicationName,
 
@@ -36,10 +36,10 @@ interface class DatabaseConnectionConfiguration
 
     /// Connection query mode.
     QueryMode? queryMode,
-  }) = _DatabaseConnectionConfiguration;
+  }) = _PostgresDatabaseConnectionConfiguration;
 
   /// Postgres database connection settings based on this configuration.
-  ConnectionSettings toPgConnection() => ConnectionSettings(
+  ConnectionSettings get connectionSettings => ConnectionSettings(
         applicationName: applicationName,
         timeZone: timeZone,
         sslMode: sslMode,
@@ -49,6 +49,7 @@ interface class DatabaseConnectionConfiguration
         queryMode: queryMode,
       );
 
-  factory DatabaseConnectionConfiguration.fromJson(Map<String, dynamic> json) =>
-      _$DatabaseConnectionConfigurationFromJson(json);
+  factory PostgresDatabaseConnectionConfiguration.fromJson(
+          Map<String, dynamic> json) =>
+      _$PostgresDatabaseConnectionConfigurationFromJson(json);
 }

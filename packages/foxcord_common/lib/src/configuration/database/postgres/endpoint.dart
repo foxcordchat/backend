@@ -9,21 +9,21 @@ part 'endpoint.mapper.dart';
 /// Database endpoint configuration.
 @freezed
 @MappableClass()
-interface class DatabaseEndpointConfiguration
+interface class PostgresDatabaseEndpointConfiguration
     with
-        DatabaseEndpointConfigurationMappable,
-        _$DatabaseEndpointConfiguration {
+        PostgresDatabaseEndpointConfigurationMappable,
+        _$PostgresDatabaseEndpointConfiguration {
   /// Default postgres port.
   static const int _defaultPort = 5432;
 
-  const DatabaseEndpointConfiguration._();
+  const PostgresDatabaseEndpointConfiguration._();
 
-  const factory DatabaseEndpointConfiguration({
+  const factory PostgresDatabaseEndpointConfiguration({
     /// Database host.
     required String host,
 
     /// Database port.
-    @Default(DatabaseEndpointConfiguration._defaultPort) int port,
+    @Default(PostgresDatabaseEndpointConfiguration._defaultPort) int port,
 
     /// Database name.
     required String database,
@@ -33,10 +33,10 @@ interface class DatabaseEndpointConfiguration
 
     /// Database password.
     String? password,
-  }) = _DatabaseEndpointConfiguration;
+  }) = _PostgresDatabaseEndpointConfiguration;
 
   /// Postgres database endpoint based on this configuration.
-  Endpoint toPgEndpoint() => Endpoint(
+  Endpoint get endpoint => Endpoint(
         host: host,
         port: port,
         database: database,
@@ -44,6 +44,6 @@ interface class DatabaseEndpointConfiguration
         password: password,
       );
 
-  factory DatabaseEndpointConfiguration.fromJson(Map<String, dynamic> json) =>
-      _$DatabaseEndpointConfigurationFromJson(json);
+  factory PostgresDatabaseEndpointConfiguration.fromJson(Map<String, dynamic> json) =>
+      _$PostgresDatabaseEndpointConfigurationFromJson(json);
 }
