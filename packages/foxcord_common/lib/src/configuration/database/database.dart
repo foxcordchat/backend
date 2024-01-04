@@ -15,7 +15,7 @@ part 'database.g.dart';
 part 'database.mapper.dart';
 
 /// Database connection configuration.
-@Freezed(unionKey: 'type')
+@Freezed(unionKey: 'type', fallbackUnion: 'memory')
 @MappableClass()
 interface class DatabaseConfiguration
     with DatabaseConfigurationMappable, _$DatabaseConfiguration {
@@ -27,6 +27,13 @@ interface class DatabaseConfiguration
 
   const DatabaseConfiguration._();
 
+  /// In-memory database backend.
+  const factory DatabaseConfiguration.memory({
+    /// Log database queries.
+    @Default(DatabaseConfiguration._defaultLogStatements) bool logStatements,
+  }) = _DatabaseConfigurationMemory;
+
+  /// Sqlite database backend.
   const factory DatabaseConfiguration.sqlite({
     /// Database file.
     @DartIOFileConverter() required File file,
@@ -35,6 +42,7 @@ interface class DatabaseConfiguration
     @Default(DatabaseConfiguration._defaultLogStatements) bool logStatements,
   }) = _DatabaseConfigurationSqlite;
 
+  /// Postgres database backend.
   const factory DatabaseConfiguration.postgres({
     /// Database endpoint.
     required PostgresDatabaseEndpointConfiguration endpoint,
@@ -52,6 +60,12 @@ interface class DatabaseConfiguration
 
   /// Get query executor from this config
   QueryExecutor get queryExecutor => switch (this) {
+        _DatabaseConfigurationMemory(
+          :final logStatements,
+        ) =>
+          NativeDatabase.memory(
+            logStatements: logStatements,
+          ),
         _DatabaseConfigurationSqlite(
           :final file,
           :final logStatements,
