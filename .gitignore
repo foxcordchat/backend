@@ -250,6 +250,8 @@ fabric.properties
 *.schema.dart
 *.mapper.dart
 *.module.dart
+*.config.dart
+*.pb*.dart
 
 # Config
 config.yaml

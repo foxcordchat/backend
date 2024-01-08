@@ -6,7 +6,7 @@ packages:
 command:
   bootstrap:
     hooks:
-      post: melos run build_runner:build --no-select
+      post: melos run buf:generate && melos run build_runner:build
 
 scripts:
   build_runner:build:
@@ -33,6 +33,18 @@ scripts:
         - test
       dependsOn:
         - test
+
+  buf:generate:
+    run: buf generate
+    exec:
+      orderDependents: true
+    description: Generate code with protoc plugins.
+    packageFilters:
+      fileExists:
+        - buf.yaml
+        - buf.gen.yaml
+      dependsOn:
+        - protobuf
 
 ide:
   intellij:
