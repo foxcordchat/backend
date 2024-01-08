@@ -10,32 +10,20 @@ command:
 
 scripts:
   build_runner:build:
-    exec: dart run build_runner build --delete-conflicting-outputs
+    run: dart run build_runner build --delete-conflicting-outputs --low-resources-mode
+    exec:
+      orderDependents: true
     description: Run a build_runner build.
     packageFilters:
       dependsOn:
         - build_runner
 
   build_runner:watch:
-    exec: dart run build_runner watch --delete-conflicting-outputs
+    exec: dart run build_runner watch --delete-conflicting-outputs --low-resources-mode
     description: Run a build_runner watch.
     packageFilters:
       dependsOn:
         - build_runner
-
-  minerva:debug:
-    exec: dart run minerva debug
-    description: Run Minerva server with debug services.
-    packageFilters:
-      dependsOn:
-        - minerva
-
-  minerva:run:
-    exec: dart run minerva run
-    description: Run Minerva server.
-    packageFilters:
-      dependsOn:
-        - minerva
 
   test:
     exec: dart test
