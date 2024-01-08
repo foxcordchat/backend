@@ -13,12 +13,18 @@ dependencies:
   dart_mappable: ^4.2.0
   dartfield: ^1.1.0
   drift: ^2.14.1
+  drift_mariadb:
+    git:
+      url: https://github.com/simolus3/drift.git
+      path: extras/drift_mariadb
   drift_postgres: ^1.0.0
   file: ^7.0.0
   foxid: ^1.2.0
   freezed_annotation: ^2.4.1
   injectable: ^2.3.2
   json_annotation: ^4.8.1
+  meta: ^1.11.0
+  mysql_client: ^0.0.27
   path: ^1.9.0
   postgres: ^3.0.5
 

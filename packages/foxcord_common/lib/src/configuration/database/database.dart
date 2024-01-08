@@ -3,10 +3,12 @@ import 'dart:io';
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:drift/backends.dart';
 import 'package:drift/native.dart';
+import 'package:drift_mariadb/drift_mariadb.dart';
 import 'package:drift_postgres/drift_postgres.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../converter/dart/io/file.dart';
+import 'mysql/pool.dart';
 import 'postgres/connection.dart';
 import 'postgres/endpoint.dart';
 
@@ -42,6 +44,16 @@ interface class DatabaseConfiguration
     @Default(DatabaseConfiguration._defaultLogStatements) bool logStatements,
   }) = _DatabaseConfigurationSqlite;
 
+  /// MariaDB database backend.
+  @experimental
+  const factory DatabaseConfiguration.mariadb({
+    /// Database pool.
+    required MySQLDatabasePoolConfiguration pool,
+
+    /// Log database queries.
+    @Default(DatabaseConfiguration._defaultLogStatements) bool logStatements,
+  }) = _DatabaseConfigurationMariadb;
+
   /// Postgres database backend.
   const factory DatabaseConfiguration.postgres({
     /// Database endpoint.
@@ -72,6 +84,14 @@ interface class DatabaseConfiguration
         ) =>
           NativeDatabase(
             file,
+            logStatements: logStatements,
+          ),
+        _DatabaseConfigurationMariadb(
+          :final pool,
+          :final logStatements,
+        ) =>
+          MariaDBDatabase(
+            pool: pool.pool,
             logStatements: logStatements,
           ),
         _DatabaseConfigurationPostgres(
