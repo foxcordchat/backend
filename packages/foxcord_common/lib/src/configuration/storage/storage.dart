@@ -1,8 +1,11 @@
+import 'dart:io';
+
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:file/chroot.dart';
-import 'package:file/file.dart';
+import 'package:file/file.dart' hide Directory;
 import 'package:file/local.dart';
 import 'package:file/memory.dart';
+import 'package:foxcord_common/src/configuration/converter/dart/io/directory.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:path/path.dart';
 
@@ -22,7 +25,7 @@ interface class StorageConfiguration
 
   /// Local storage.
   const factory StorageConfiguration.local({
-    required String path,
+    @DartIODirectoryConverter() required Directory path,
   }) = _StorageConfigurationLocal;
 
   /// Get filesystem based on storage config.
@@ -33,7 +36,7 @@ interface class StorageConfiguration
         ) =>
           ChrootFileSystem(
             const LocalFileSystem(),
-            canonicalize(path),
+            canonicalize(path.path),
           ),
         _ => throw UnimplementedError("Unknown storage impl"),
       };
