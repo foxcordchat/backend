@@ -8,15 +8,21 @@ environment:
   sdk: ">=3.1.0 <4.0.0"
 
 dependencies:
+  dart_mappable: ^4.2.0
   foxcord_common: ^1.0.0
-  minerva: ^0.3.6
-  minerva_controller_annotation: ^1.0.2
+  freezed_annotation: ^2.4.1
+  get_it: ^7.6.6
+  injectable: ^2.3.2
+  json_annotation: ^4.8.1
 
 dev_dependencies:
-  build_runner: ^2.4.6
-  minerva_controller_generator: ^0.9.5
-  lints: ^2.0.0
-  test: ^1.21.0
+  build_runner: ^2.4.7
+  dart_mappable_builder: ^4.2.0
+  freezed: ^2.4.6
+  injectable_generator: ^2.4.1
+  json_serializable: ^6.7.1
+  lints: ^3.0.0
+  test: ^1.25.0
 
 publish_to: none
 

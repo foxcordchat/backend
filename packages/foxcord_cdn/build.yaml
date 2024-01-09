@@ -1,0 +1,10 @@
+targets:
+  $default:
+    builders:
+      freezed:
+        options:
+          copy_with: false
+          to_json: false
+      json_serializable:
+        options:
+          explicit_to_json: true
