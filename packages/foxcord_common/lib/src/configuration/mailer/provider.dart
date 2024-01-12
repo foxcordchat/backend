@@ -36,7 +36,7 @@ interface class MailerProviderConfiguration
       _MailerProviderConfigurationNone;
 
   /// Smtp mailer.
-  const factory MailerProviderConfiguration.SMTP({
+  const factory MailerProviderConfiguration.smtp({
     required String host,
     @Default(MailerProviderConfiguration._defaultSmtpPort) int port,
     @Default(MailerProviderConfiguration._defaultSmtpIgnoreBadCertificate)
