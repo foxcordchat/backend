@@ -6,7 +6,7 @@ part 'pool.freezed.dart';
 part 'pool.g.dart';
 part 'pool.mapper.dart';
 
-/// Database pool configuration.
+/// MySQL database pool configuration.
 @freezed
 @MappableClass()
 interface class MySQLDatabasePoolConfiguration
@@ -51,8 +51,7 @@ interface class MySQLDatabasePoolConfiguration
     int maxConnections,
 
     /// Database collation.
-    @Default(MySQLDatabasePoolConfiguration._defaultCollation)
-    String collation,
+    @Default(MySQLDatabasePoolConfiguration._defaultCollation) String collation,
 
     /// Connection timeout.
     @Default(MySQLDatabasePoolConfiguration._defaultTimeout) Duration timeout,
@@ -74,7 +73,6 @@ interface class MySQLDatabasePoolConfiguration
         secure: secure,
       );
 
-  factory MySQLDatabasePoolConfiguration.fromJson(
-          Map<String, dynamic> json) =>
+  factory MySQLDatabasePoolConfiguration.fromJson(Map<String, dynamic> json) =>
       _$MySQLDatabasePoolConfigurationFromJson(json);
 }

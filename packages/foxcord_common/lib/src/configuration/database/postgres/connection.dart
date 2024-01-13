@@ -6,7 +6,7 @@ part 'connection.freezed.dart';
 part 'connection.g.dart';
 part 'connection.mapper.dart';
 
-/// Database connection configuration.
+/// Postgres connection configuration.
 @freezed
 @MappableClass()
 interface class PostgresDatabaseConnectionConfiguration

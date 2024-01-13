@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+/// Json converter for Dart IO File.
 class DartIOFileConverter extends JsonConverter<File, String> {
   const DartIOFileConverter();
 

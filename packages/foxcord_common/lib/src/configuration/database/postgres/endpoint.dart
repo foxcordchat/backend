@@ -6,7 +6,7 @@ part 'endpoint.freezed.dart';
 part 'endpoint.g.dart';
 part 'endpoint.mapper.dart';
 
-/// Database endpoint configuration.
+/// Postgres endpoint configuration.
 @freezed
 @MappableClass()
 interface class PostgresDatabaseEndpointConfiguration
@@ -44,6 +44,7 @@ interface class PostgresDatabaseEndpointConfiguration
         password: password,
       );
 
-  factory PostgresDatabaseEndpointConfiguration.fromJson(Map<String, dynamic> json) =>
+  factory PostgresDatabaseEndpointConfiguration.fromJson(
+          Map<String, dynamic> json) =>
       _$PostgresDatabaseEndpointConfigurationFromJson(json);
 }

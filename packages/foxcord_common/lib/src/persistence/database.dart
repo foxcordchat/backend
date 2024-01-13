@@ -13,10 +13,6 @@ part 'database.g.dart';
 class Database extends _$Database {
   Database(super.queryExecutor);
 
-  @factoryMethod
-  factory Database.fromConfiguration(DatabaseConfiguration configuration) =>
-      Database(configuration.queryExecutor);
-
   @override
   int get schemaVersion => 1;
 
@@ -30,4 +26,8 @@ class Database extends _$Database {
         onUpgrade: (Migrator migrator, int from, int to) =>
             throw UnimplementedError(),
       );
+
+  @factoryMethod
+  factory Database.fromConfiguration(DatabaseConfiguration configuration) =>
+      Database(configuration.queryExecutor);
 }

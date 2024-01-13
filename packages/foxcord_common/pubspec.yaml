@@ -9,6 +9,7 @@ environment:
 
 dependencies:
   base32: ^2.1.3
+  dargon2: ^3.2.1
   dart_amqp: ^0.2.5
   dart_mappable: ^4.2.0
   dartfield: ^1.1.0
