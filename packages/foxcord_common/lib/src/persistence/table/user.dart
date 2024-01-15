@@ -12,4 +12,8 @@ abstract class User extends BaseTable {
 
   /// Hashed password.
   BlobColumn get passwordHash => blob()();
+
+  /// All tokens with a previous issue date are invalid.
+  DateTimeColumn get validTokensSince =>
+      dateTime().clientDefault(() => DateTime.now().toUtc())();
 }
