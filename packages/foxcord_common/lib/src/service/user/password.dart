@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:math';
 import 'dart:typed_data';
 
@@ -25,7 +24,7 @@ final class PasswordService {
     parallelism: 1,
     memory: 19000,
     iterations: 2,
-    hashLength: 32,
+    hashLength: _hashLength,
   );
 
   /// Generate salt.
@@ -36,19 +35,24 @@ final class PasswordService {
 
   /// Hash password.
   Future<Uint8List> hashPassword(String password) async {
-    final Uint8List rawPassword = utf8.encode(password);
     final List<int> salt = generateSalt();
 
-    final SecretKey result = await _algorithm.deriveKey(
-      secretKey: SecretKey(rawPassword),
+    final SecretKey result = await _algorithm.deriveKeyFromPassword(
+      password: password,
       nonce: salt,
     );
 
     final List<int> hashBytes = await result.extractBytes();
 
     final Pickle pickle = Pickle.empty()
-      ..writeBytes(salt, _saltLength)
-      ..writeBytes(hashBytes, _hashLength);
+      // 0 == argon2id
+      ..writeUInt32(0)
+      // salt length
+      ..writeUInt32(salt.length)
+      ..writeBytes(salt, salt.length)
+      // hash length
+      ..writeUInt32(hashBytes.length)
+      ..writeBytes(hashBytes, hashBytes.length);
 
     return pickle.usedHeader;
   }
@@ -58,18 +62,21 @@ final class PasswordService {
     String password,
     Uint8List encodedHash,
   ) async {
-    final Uint8List rawPassword = utf8.encode(password);
-
     final PickleIterator iterator =
         Pickle.fromUint8List(encodedHash).createIterator();
 
-    final (salt, hash) = (
-      iterator.readBytes(_saltLength),
-      iterator.readBytes(_hashLength),
+    final (_, salt, hash) = (
+      iterator.readUInt32(),
+      iterator.readBytes(
+        iterator.readUInt32(),
+      ),
+      iterator.readBytes(
+        iterator.readUInt32(),
+      ),
     );
 
-    final result = await _algorithm.deriveKey(
-        secretKey: SecretKey(rawPassword), nonce: salt);
+    final result =
+        await _algorithm.deriveKeyFromPassword(password: password, nonce: salt);
 
     final resultBytes = await result.extractBytes();
 
