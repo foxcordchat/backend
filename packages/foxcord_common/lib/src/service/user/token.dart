@@ -7,7 +7,6 @@ import 'package:foxid/foxid.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../extension/dart/core/date_time.dart';
-import '../../persistence/accessor/user.dart';
 import '../../persistence/database.dart';
 
 @lazySingleton

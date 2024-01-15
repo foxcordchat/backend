@@ -10,7 +10,7 @@ environment:
 dependencies:
   base32: ^2.1.3
   base85: ^1.0.4
-  chromium_pickle: ^1.1.0
+  chromium_pickle: ^1.1.1
   cryptography: ^2.7.0
   dargon2: ^3.2.1
   dart_amqp: ^0.2.5
