@@ -8,10 +8,10 @@ import 'package:cryptography/helpers.dart';
 import 'package:foxid/foxid.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../extension/dart/core/date_time.dart';
 import '../../persistence/accessor/user.dart';
 import '../../persistence/database.dart';
 
+/// Service for generating and verifying tokens.
 @lazySingleton
 final class TokenService {
   static final Codec<List<int>, String> _codec = Base85Codec(Alphabets.z85);
@@ -21,6 +21,7 @@ final class TokenService {
 
   TokenService(this.userAccessor);
 
+  /// Generate token for specified user.
   Future<String> generate(
     UserData user, {
     DateTime? creationTime,
@@ -29,7 +30,10 @@ final class TokenService {
 
     final Pickle pickle = Pickle.empty()
       ..writeBytes(user.id.payload, FOxID.byteLength)
-      ..writeUInt32(creationTime.toUtc().secondsSinceEpoch);
+      ..writeUInt32(
+        creationTime.toUtc().millisecondsSinceEpoch ~/
+            Duration.millisecondsPerSecond,
+      );
 
     final Mac signature = await _hmac.calculateMac(
       pickle.usedPayload,
