@@ -1,0 +1,8 @@
+syntax = "proto3";
+
+package proto.common.serial.v1;
+
+message TypedMessage {
+  string type = 1;
+  bytes message = 2;
+}

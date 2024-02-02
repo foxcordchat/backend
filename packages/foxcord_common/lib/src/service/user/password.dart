@@ -1,11 +1,13 @@
 import 'dart:math';
 import 'dart:typed_data';
 
-import 'package:chromium_pickle/chromium_pickle.dart';
 import 'package:cryptography/cryptography.dart';
 import 'package:cryptography/helpers.dart';
 import 'package:foxid/foxid.dart';
 import 'package:injectable/injectable.dart';
+
+import '../../../gen/proto/foxcord/service/password/v1/password.pb.dart';
+import '../../configuration/password/password.dart';
 
 /// Service for password hashing and checking.
 @lazySingleton
@@ -13,19 +15,16 @@ final class PasswordService {
   /// Salt length.
   static const int _saltLength = 32;
 
-  /// Password hash length.
-  static const int _hashLength = 32;
-
   /// Random values generator.
   static final Random _random = Random.secure();
 
+  /// Password hashing configuration.
+  final PasswordConfiguration configuration;
+
   /// Password hashing algorithm.
-  final KdfAlgorithm _algorithm = Argon2id(
-    parallelism: 1,
-    memory: 19000,
-    iterations: 2,
-    hashLength: _hashLength,
-  );
+  final KdfAlgorithm _algorithm;
+
+  PasswordService(this.configuration) : _algorithm = configuration.kdfAlgorithm;
 
   /// Generate salt.
   List<int> generateSalt() => List.generate(
@@ -37,24 +36,16 @@ final class PasswordService {
   Future<Uint8List> hashPassword(String password) async {
     final List<int> salt = generateSalt();
 
-    final SecretKey result = await _algorithm.deriveKeyFromPassword(
-      password: password,
-      nonce: salt,
+    final SecretKey derivedKey =
+        await _algorithm.deriveKeyFromPassword(password: password, nonce: salt);
+
+    final PasswordHash passwordHash = PasswordHash(
+      configuration: configuration.configurationMessage,
+      salt: salt,
+      hash: await derivedKey.extractBytes(),
     );
 
-    final List<int> hashBytes = await result.extractBytes();
-
-    final Pickle pickle = Pickle.empty()
-      // 0 == argon2id
-      ..writeUInt32(0)
-      // salt length
-      ..writeUInt32(salt.length)
-      ..writeBytes(salt, salt.length)
-      // hash length
-      ..writeUInt32(hashBytes.length)
-      ..writeBytes(hashBytes, hashBytes.length);
-
-    return pickle.usedHeader;
+    return passwordHash.writeToBuffer();
   }
 
   /// Verify password validity.
@@ -62,24 +53,16 @@ final class PasswordService {
     String password,
     Uint8List encodedHash,
   ) async {
-    final PickleIterator iterator =
-        Pickle.fromUint8List(encodedHash).createIterator();
+    final PasswordHash passwordHash = PasswordHash.fromBuffer(encodedHash);
 
-    final (_, salt, hash) = (
-      iterator.readUInt32(),
-      iterator.readBytes(
-        iterator.readUInt32(),
-      ),
-      iterator.readBytes(
-        iterator.readUInt32(),
-      ),
-    );
+    final PasswordConfiguration initialConfiguration =
+        PasswordConfiguration.fromConfigurationMessage(
+            passwordHash.configuration);
 
-    final result =
-        await _algorithm.deriveKeyFromPassword(password: password, nonce: salt);
+    final SecretKey derivedKey = await initialConfiguration.kdfAlgorithm
+        .deriveKeyFromPassword(password: password, nonce: passwordHash.salt);
 
-    final resultBytes = await result.extractBytes();
-
-    return constantTimeBytesEquality.equals(resultBytes, hash);
+    return constantTimeBytesEquality.equals(
+        await derivedKey.extractBytes(), passwordHash.hash);
   }
 }

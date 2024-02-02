@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package proto.foxcord.service.password.v1;
+
+message Argon2Options {
+  enum Argon2Type {
+    ARGON2_TYPE_UNSPECIFIED = 0;
+    ARGON2_TYPE_ARGON2I = 1;
+    ARGON2_TYPE_ARGON2D = 2;
+    ARGON2_TYPE_ARGON2ID = 3;
+  }
+
+  Argon2Type type = 1;
+  uint32 version = 2;
+  uint32 memory = 3;
+  uint32 iterations = 4;
+  uint32 parallelism = 5;
+  uint32 hash_length = 6;
+}
