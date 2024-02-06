@@ -4,9 +4,9 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'address.dart';
 import 'provider.dart';
 
-part 'mailer.freezed.dart';
-part 'mailer.g.dart';
-part 'mailer.mapper.dart';
+part 'mail.freezed.dart';
+part 'mail.g.dart';
+part 'mail.mapper.dart';
 
 /// Mailer configuration.
 @freezed

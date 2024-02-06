@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package proto.foxcord.service.password.v1;
+package proto.foxcord.service.authentication.password.v1;
 
 message Argon2Options {
   enum Argon2Type {

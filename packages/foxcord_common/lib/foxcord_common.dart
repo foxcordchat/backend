@@ -1,7 +1,10 @@
 export 'src/configuration/database/database.dart';
+export 'src/configuration/mail/mail.dart';
+export 'src/configuration/security/security.dart';
 export 'src/configuration/storage/storage.dart';
 export 'src/persistence/accessor/user.dart';
 export 'src/persistence/database.dart';
-export 'src/service/user/password.dart';
-export 'src/service/user/user.dart';
+export 'src/service/authentication/authentication.dart';
+export 'src/service/authentication/password.dart';
+export 'src/service/authentication/token.dart';
 export 'src/utility/injectable.dart';

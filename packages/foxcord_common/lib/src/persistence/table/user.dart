@@ -16,4 +16,7 @@ abstract class User extends BaseTable {
   /// All tokens with a previous issue date are invalid.
   DateTimeColumn get validTokensSince =>
       dateTime().withDefault(currentDateAndTime)();
+
+  /// Date of birth.
+  DateTimeColumn get dateOfBirth => dateTime()();
 }

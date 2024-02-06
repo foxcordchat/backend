@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+package proto.foxcord.service.authentication.token.v1;
+
+message Token {
+  bytes payload = 1;
+  uint32 timestamp = 2;
+  bytes signature = 3;
+}

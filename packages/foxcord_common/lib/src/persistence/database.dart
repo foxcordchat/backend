@@ -8,6 +8,7 @@ import 'table/user.dart';
 
 part 'database.g.dart';
 
+/// FoxCord database module.
 @lazySingleton
 @DriftDatabase(tables: [User])
 class Database extends _$Database {

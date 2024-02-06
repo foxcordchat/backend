@@ -1,9 +1,8 @@
-// ignore_for_file: unused_element
-
 import 'package:injectable/injectable.dart';
 
-export 'injectable.module.dart';
+import 'injectable.module.dart' as injectable_module;
 
-/// Initialize FoxCord micro-package.
-@microPackageInit
-void _entry() {}
+/// Initialize FoxCord Common micro-package.
+@InjectableInit.microPackage()
+final class FoxcordCommonPackageModule
+    extends injectable_module.FoxcordCommonPackageModule {}

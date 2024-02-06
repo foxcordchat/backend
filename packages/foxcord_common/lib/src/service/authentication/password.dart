@@ -6,8 +6,9 @@ import 'package:cryptography/helpers.dart';
 import 'package:foxid/foxid.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../../gen/proto/foxcord/service/password/v1/password.pb.dart';
-import '../../configuration/password/password.dart';
+import '../../../gen/proto/foxcord/service/authentication/password/v1/password.pb.dart';
+import '../../configuration/security/password/hash/hash.dart';
+import '../../configuration/security/password/password.dart';
 
 /// Service for password hashing and checking.
 @lazySingleton
@@ -24,7 +25,8 @@ final class PasswordService {
   /// Password hashing algorithm.
   final KdfAlgorithm _algorithm;
 
-  PasswordService(this.configuration) : _algorithm = configuration.kdfAlgorithm;
+  PasswordService(this.configuration)
+      : _algorithm = configuration.hash.kdfAlgorithm;
 
   /// Generate salt.
   List<int> generateSalt() => List.generate(
@@ -40,7 +42,7 @@ final class PasswordService {
         await _algorithm.deriveKeyFromPassword(password: password, nonce: salt);
 
     final PasswordHash passwordHash = PasswordHash(
-      configuration: configuration.configurationMessage,
+      configuration: configuration.hash.configurationMessage,
       salt: salt,
       hash: await derivedKey.extractBytes(),
     );
@@ -55,14 +57,16 @@ final class PasswordService {
   ) async {
     final PasswordHash passwordHash = PasswordHash.fromBuffer(encodedHash);
 
-    final PasswordConfiguration initialConfiguration =
-        PasswordConfiguration.fromConfigurationMessage(
+    final PasswordHashConfiguration initialConfiguration =
+        PasswordHashConfiguration.fromConfigurationMessage(
             passwordHash.configuration);
 
     final SecretKey derivedKey = await initialConfiguration.kdfAlgorithm
         .deriveKeyFromPassword(password: password, nonce: passwordHash.salt);
 
     return constantTimeBytesEquality.equals(
-        await derivedKey.extractBytes(), passwordHash.hash);
+      await derivedKey.extractBytes(),
+      passwordHash.hash,
+    );
   }
 }
