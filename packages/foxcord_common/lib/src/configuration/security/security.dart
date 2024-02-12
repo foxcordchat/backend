@@ -14,22 +14,12 @@ interface class SecurityConfiguration
     with SecurityConfigurationMappable, _$SecurityConfiguration {
   const SecurityConfiguration._();
 
-  /// Default token configuration.
-  static const TokenConfiguration _tokenConfigurationDefault =
-      TokenConfiguration();
-
-  /// Default password configuration
-  static const PasswordConfiguration _passwordConfigurationDefault =
-      PasswordConfiguration();
-
   const factory SecurityConfiguration({
     /// Token configuration.
-    @Default(SecurityConfiguration._tokenConfigurationDefault)
-    TokenConfiguration token,
+    @Default(TokenConfiguration()) TokenConfiguration token,
 
     /// Password configuration.
-    @Default(SecurityConfiguration._passwordConfigurationDefault)
-    PasswordConfiguration password,
+    @Default(PasswordConfiguration()) PasswordConfiguration password,
   }) = _SecurityConfiguration;
 
   factory SecurityConfiguration.fromJson(Map<String, dynamic> json) =>

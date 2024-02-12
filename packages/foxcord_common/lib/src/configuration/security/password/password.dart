@@ -13,13 +13,9 @@ interface class PasswordConfiguration
     with PasswordConfigurationMappable, _$PasswordConfiguration {
   const PasswordConfiguration._();
 
-  /// Default password hashing configuration.
-  static const PasswordHashConfiguration _passwordHashConfigurationDefault =
-      PasswordHashConfiguration.argon2id();
-
   const factory PasswordConfiguration({
     /// Password hashing configuration.
-    @Default(PasswordConfiguration._passwordHashConfigurationDefault)
+    @Default(PasswordHashConfiguration.argon2id())
     PasswordHashConfiguration hash,
   }) = _PasswordConfiguration;
 

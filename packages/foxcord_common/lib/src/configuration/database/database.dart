@@ -13,11 +13,13 @@ import 'postgres/connection.dart';
 import 'postgres/endpoint.dart';
 
 part 'database.freezed.dart';
+
 part 'database.g.dart';
+
 part 'database.mapper.dart';
 
 /// Database connection configuration.
-@Freezed(unionKey: 'type', fallbackUnion: 'memory')
+@Freezed(fallbackUnion: 'memory')
 @MappableClass()
 interface class DatabaseConfiguration
     with DatabaseConfigurationMappable, _$DatabaseConfiguration {
@@ -32,41 +34,48 @@ interface class DatabaseConfiguration
   /// In-memory database backend.
   const factory DatabaseConfiguration.memory({
     /// Log database queries.
-    @Default(DatabaseConfiguration._defaultLogStatements) bool logStatements,
+    @Default(DatabaseConfiguration._defaultLogStatements) //
+    bool logStatements,
   }) = _DatabaseConfigurationMemory;
 
   /// Sqlite database backend.
   const factory DatabaseConfiguration.sqlite({
     /// Database file.
-    @DartIOFileConverter() required File file,
+    @DartIOFileConverter() //
+    required File file,
 
     /// Log database queries.
-    @Default(DatabaseConfiguration._defaultLogStatements) bool logStatements,
+    @Default(DatabaseConfiguration._defaultLogStatements) //
+    bool logStatements,
   }) = _DatabaseConfigurationSqlite;
 
   /// MariaDB database backend.
   @experimental
   const factory DatabaseConfiguration.mariadb({
     /// Database pool.
-    required MySQLDatabasePoolConfiguration pool,
+    @Default(MySQLDatabasePoolConfiguration()) //
+    MySQLDatabasePoolConfiguration pool,
 
     /// Log database queries.
-    @Default(DatabaseConfiguration._defaultLogStatements) bool logStatements,
+    @Default(DatabaseConfiguration._defaultLogStatements) //
+    bool logStatements,
   }) = _DatabaseConfigurationMariadb;
 
   /// Postgres database backend.
   const factory DatabaseConfiguration.postgres({
     /// Database endpoint.
-    required PostgresDatabaseEndpointConfiguration endpoint,
+    @Default(PostgresDatabaseEndpointConfiguration()) //
+    PostgresDatabaseEndpointConfiguration endpoint,
 
     /// Database connection.
     PostgresDatabaseConnectionConfiguration? connection,
 
     /// Log database queries.
-    @Default(DatabaseConfiguration._defaultLogStatements) bool logStatements,
+    @Default(DatabaseConfiguration._defaultLogStatements) //
+    bool logStatements,
 
     /// Enable database migrations.
-    @Default(DatabaseConfiguration._defaultEnableMigrations)
+    @Default(DatabaseConfiguration._defaultEnableMigrations) //
     bool enableMigrations,
   }) = _DatabaseConfigurationPostgres;
 

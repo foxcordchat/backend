@@ -3,7 +3,9 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:postgres/postgres.dart';
 
 part 'endpoint.freezed.dart';
+
 part 'endpoint.g.dart';
+
 part 'endpoint.mapper.dart';
 
 /// Postgres endpoint configuration.
@@ -13,20 +15,20 @@ interface class PostgresDatabaseEndpointConfiguration
     with
         PostgresDatabaseEndpointConfigurationMappable,
         _$PostgresDatabaseEndpointConfiguration {
-  /// Default postgres port.
-  static const int _defaultPort = 5432;
-
   const PostgresDatabaseEndpointConfiguration._();
 
   const factory PostgresDatabaseEndpointConfiguration({
     /// Database host.
-    required String host,
+    @Default('localhost') //
+    String host,
 
     /// Database port.
-    @Default(PostgresDatabaseEndpointConfiguration._defaultPort) int port,
+    @Default(5432) //
+    int port,
 
     /// Database name.
-    required String database,
+    @Default('foxcord') //
+    String database,
 
     /// Database username.
     String? username,

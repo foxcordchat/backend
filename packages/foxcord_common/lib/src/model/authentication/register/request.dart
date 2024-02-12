@@ -4,14 +4,18 @@ import 'package:luthor/luthor.dart';
 import 'package:luthor_annotation/luthor_annotation.dart';
 
 part 'request.freezed.dart';
+
 part 'request.g.dart';
+
 part 'request.mapper.dart';
 
 @luthor
-@Freezed(toJson: true)
+@freezed
 @MappableClass()
 interface class AuthenticationRegisterRequestDto
-    with _$AuthenticationRegisterRequestDto {
+    with
+        AuthenticationRegisterRequestDtoMappable,
+        _$AuthenticationRegisterRequestDto {
   const factory AuthenticationRegisterRequestDto({
     @HasMin(2) @HasMax(32) required String username,
     @HasMin(8) @HasMax(72) required String password,

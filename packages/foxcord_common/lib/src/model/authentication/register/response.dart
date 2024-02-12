@@ -10,7 +10,9 @@ part 'response.mapper.dart';
 @freezed
 @MappableClass()
 interface class AuthenticationRegisterResponseDto
-    with _$AuthenticationRegisterResponseDto {
+    with
+        AuthenticationRegisterResponseDtoMappable,
+        _$AuthenticationRegisterResponseDto {
   const factory AuthenticationRegisterResponseDto.ok({
     required String token,
   }) = _AuthenticationRegisterResponseDtoOk;

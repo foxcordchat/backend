@@ -17,7 +17,8 @@ interface class PostgresDatabaseConnectionConfiguration
 
   const factory PostgresDatabaseConnectionConfiguration({
     /// Application name of this connection.
-    String? applicationName,
+    @Default('foxcord') //
+    String applicationName,
 
     /// Timezone of this connection for date operations.
     String? timeZone,

@@ -5,42 +5,34 @@ import 'package:dart_mappable/dart_mappable.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'codec.freezed.dart';
+
 part 'codec.g.dart';
+
 part 'codec.mapper.dart';
 
 /// Token codec configuration.
-@Freezed(fallbackUnion: 'base64', unionKey: 'type')
+@Freezed(fallbackUnion: 'base64')
 @MappableClass()
 interface class TokenCodecConfiguration
     with TokenCodecConfigurationMappable, _$TokenCodecConfiguration {
   const TokenCodecConfiguration._();
 
-  /// Use URL-safe base64 version by default.
-  static const bool _base64DefaultUrlSafe = true;
-
-  /// Default base85 encoding alphabet.
-  static const String _base85DefaultAlphabet =
-      '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!#\$%&()*+-;<=>?@^_`{|}~';
-
-  /// Default base85 encoding algorithm.
-  static const AlgoType _base85DefaultAlgorithm = AlgoType.ascii85;
-
   /// Base64 encoding.
   const factory TokenCodecConfiguration.base64({
     /// Use URL-safe base64 version.
-    @Default(TokenCodecConfiguration._base64DefaultUrlSafe) //
+    @Default(true) //
     bool urlSafe,
   }) = _TokenCodecConfigurationBase64;
 
   /// Base85 encoding.
   const factory TokenCodecConfiguration.base85({
     /// Alphabet to use.
-    @Default(TokenCodecConfiguration._base85DefaultAlphabet) //
+    @Default(
+        '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!#\$%&()*+-;<=>?@^_`{|}~') //
     String alphabet,
 
     /// Algorithm to use.
-    @Default(TokenCodecConfiguration._base85DefaultAlgorithm)
-    AlgoType algorithm,
+    @Default(AlgoType.ascii85) AlgoType algorithm,
   }) = _TokenCodecConfigurationBase85;
 
   /// Codec based on this configuration.

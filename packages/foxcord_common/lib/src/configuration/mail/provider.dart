@@ -3,33 +3,17 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:mailer/smtp_server.dart';
 
 part 'provider.freezed.dart';
+
 part 'provider.g.dart';
+
 part 'provider.mapper.dart';
 
 /// Mailer provider configuration.
-@Freezed(unionKey: 'type', fallbackUnion: 'none')
+@Freezed(fallbackUnion: 'none')
 @MappableClass()
 interface class MailerProviderConfiguration
     with MailerProviderConfigurationMappable, _$MailerProviderConfiguration {
   const MailerProviderConfiguration._();
-
-  /// Default port for custom SMTP servers.
-  static const _defaultSmtpPort = 587;
-
-  /// Ignore bad certificates on custom SMTP server.
-  static const _defaultSmtpIgnoreBadCertificate = false;
-
-  /// Use ssl on custom SMTP server.
-  static const _defaultSmtpSsl = false;
-
-  /// Allow insecure communication on custom SMTP server.
-  static const _defaultSmtpAllowInsecure = false;
-
-  /// Default port of papercut SMTP server.
-  static const _defaultPapercutPort = 25;
-
-  /// Default hostname of papercut SMTP server.
-  static const _defaultPapercutHost = '127.0.0.1';
 
   /// Disables mailer.
   const factory MailerProviderConfiguration.none() =
@@ -37,51 +21,109 @@ interface class MailerProviderConfiguration
 
   /// Smtp mailer.
   const factory MailerProviderConfiguration.smtp({
-    required String host,
-    @Default(MailerProviderConfiguration._defaultSmtpPort) int port,
-    @Default(MailerProviderConfiguration._defaultSmtpIgnoreBadCertificate)
+    /// Host to use.
+    @Default('localhost') //
+    String host,
+
+    /// Port to use.
+    @Default(587) //
+    int port,
+
+    /// Ignore bad server SSL certificate.
+    @Default(false) //
     bool ignoreBadCertificate,
-    @Default(MailerProviderConfiguration._defaultSmtpSsl) bool ssl,
-    @Default(MailerProviderConfiguration._defaultSmtpAllowInsecure)
+
+    /// Use SSL for communication with server.
+    @Default(false) //
+    bool ssl,
+
+    /// Allow insecure communication with server.
+    @Default(false) //
     bool allowInsecure,
+
+    /// Username of mailing user.
     String? username,
+
+    /// Password of mailing user.
     String? password,
+
+    /// XOAuth2 of mailing user.
     String? xoauth2Token,
   }) = _MailerProviderConfigurationSmtp;
 
   /// Gmail mailer provider.
   const factory MailerProviderConfiguration.gmail(
-      String username, String password) = _MailerProviderConfigurationGmail;
+    /// Username of mailing user.
+    String username,
+
+    /// Password of mailing user.
+    String password,
+  ) = _MailerProviderConfigurationGmail;
 
   /// Outlook Hotmail mailer provider.
   const factory MailerProviderConfiguration.hotmail(
-      String username, String password) = _MailerProviderConfigurationHotmail;
+    /// Username of mailing user.
+    String username,
+
+    /// Password of mailing user.
+    String password,
+  ) = _MailerProviderConfigurationHotmail;
 
   /// Mailgun mailer provider.
   const factory MailerProviderConfiguration.mailgun(
-      String username, String password) = _MailerProviderConfigurationMailgun;
+    /// Username of mailing user.
+    String username,
+
+    /// Password of mailing user.
+    String password,
+  ) = _MailerProviderConfigurationMailgun;
 
   /// Papercut mailer provider.
-  const factory MailerProviderConfiguration.papercut([
-    @Default(MailerProviderConfiguration._defaultPapercutHost) String host,
-    @Default(MailerProviderConfiguration._defaultPapercutPort) int port,
-  ]) = _MailerProviderConfigurationPapercut;
+  const factory MailerProviderConfiguration.papercut({
+    /// Host to use.
+    @Default('localhost') //
+    String host,
+
+    /// Port to use.
+    @Default(25) //
+    int port,
+  }) = _MailerProviderConfigurationPapercut;
 
   /// Tencent QQ mailer provider.
   const factory MailerProviderConfiguration.qq(
-      String username, String password) = _MailerProviderConfigurationQQ;
+    /// Username of mailing user.
+    String username,
+
+    /// Password of mailing user.
+    String password,
+  ) = _MailerProviderConfigurationQQ;
 
   /// Yahoo mailer provider.
   const factory MailerProviderConfiguration.yahoo(
-      String username, String password) = _MailerProviderConfigurationYahoo;
+    /// Username of mailing user.
+    String username,
+
+    /// Password of mailing user.
+    String password,
+  ) = _MailerProviderConfigurationYahoo;
 
   /// Yandex mailer provider
   const factory MailerProviderConfiguration.yandex(
-      String username, String password) = _MailerProviderConfigurationYandex;
+    /// Username of mailing user.
+    String username,
+
+    /// Password of mailing user.
+    String password,
+  ) = _MailerProviderConfigurationYandex;
 
   /// Zoho mailer provider.
   const factory MailerProviderConfiguration.zoho(
-      String username, String password) = _MailerProviderConfigurationZoho;
+    /// Username of mailing user.
+    String username,
+
+    /// Password of mailing user.
+    String password,
+  ) = _MailerProviderConfigurationZoho;
 
   /// Get mailer server endpoint based on this config.
   SmtpServer? get smtpServer => switch (this) {

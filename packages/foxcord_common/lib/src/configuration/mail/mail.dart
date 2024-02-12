@@ -5,7 +5,9 @@ import 'address.dart';
 import 'provider.dart';
 
 part 'mail.freezed.dart';
+
 part 'mail.g.dart';
+
 part 'mail.mapper.dart';
 
 /// Mailer configuration.

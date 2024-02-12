@@ -6,16 +6,17 @@ import 'package:file/file.dart' hide Directory;
 import 'package:file/local.dart';
 import 'package:file/memory.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:path/path.dart';
 
 import '../converter/dart/io/directory.dart';
 
 part 'storage.freezed.dart';
+
 part 'storage.g.dart';
+
 part 'storage.mapper.dart';
 
 /// Storage configuration.
-@Freezed(unionKey: 'type', fallbackUnion: 'memory')
+@Freezed(fallbackUnion: 'memory')
 @MappableClass()
 interface class StorageConfiguration
     with StorageConfigurationMappable, _$StorageConfiguration {
@@ -25,19 +26,32 @@ interface class StorageConfiguration
   const factory StorageConfiguration.memory() = _StorageConfigurationMemory;
 
   /// Local storage.
-  const factory StorageConfiguration.local({
-    @DartIODirectoryConverter() required Directory path,
-  }) = _StorageConfigurationLocal;
+  const factory StorageConfiguration.local() = _StorageConfigurationLocal;
+
+  /// Chroot storage.
+  const factory StorageConfiguration.chroot({
+    /// Path in delegate filesystem.
+    @DartIODirectoryConverter() //
+    required Directory path,
+
+    /// Delegate filesystem.
+    required StorageConfiguration delegate,
+  }) = _StorageConfigurationChroot;
+
+  /// S3 storage.
+  const factory StorageConfiguration.s3() = _StorageConfigurationS3;
+
+  /// Google Cloud storage.
+  const factory StorageConfiguration.gcloud() = _StorageConfigurationGcloud;
 
   /// Get filesystem based on storage config.
   FileSystem get fileSystem => switch (this) {
         _StorageConfigurationMemory() => MemoryFileSystem(),
-        _StorageConfigurationLocal(
-          :final path,
-        ) =>
+        _StorageConfigurationLocal() => LocalFileSystem(),
+        _StorageConfigurationChroot(:final path, :final delegate) =>
           ChrootFileSystem(
-            const LocalFileSystem(),
-            canonicalize(path.path),
+            delegate.fileSystem,
+            delegate.fileSystem.path.canonicalize(path.path),
           ),
         _ => throw UnimplementedError("Unknown storage impl"),
       };

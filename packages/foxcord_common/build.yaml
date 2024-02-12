@@ -5,6 +5,7 @@ targets:
         options:
           copy_with: false
           to_json: false
+          union_key: type
       json_serializable:
         options:
           explicit_to_json: true
